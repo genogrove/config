@@ -1,0 +1,3 @@
+#define genogrove_VERSION_MAJOR @genogrove_VERSION_MAJOR@
+#define genogrove_VERSION_MINOR @genogrove_VERSION_MINOR@
+#define genogrove_VERSION_PATCH @genogrove_VERSION_PATCH@
