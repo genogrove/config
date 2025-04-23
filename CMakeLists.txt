@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 # configure version of the library
 configure_file(
         include/genogrove/config/version.hpp.in
-        include/genogrove/config/version.hpp
+        ${CMAKE_CURRENT_BINARY_DIR}/include/genogrove/config/version.hpp
 )
 
 add_library(genogrove_config INTERFACE)
@@ -19,6 +19,6 @@ target_include_directories(genogrove_config INTERFACE
 option(BUILD_TESTS "Build tests" OFF)
 if(BUILD_TESTS)
     enable_testing()
-    add_subdirectory(test)
+    add_subdirectory(tests)
 endif()
 

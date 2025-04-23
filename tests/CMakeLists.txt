@@ -8,7 +8,25 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
-target_compile_definition(
+# gather all test sources
+file(GLOB TEST_SOURCES *.cpp)
+
+# create the test executable
+add_executable(genogrove_config_version_tests ${TEST_SOURCES})
+
+# add include paths
+target_include_directories(
+        genogrove_config_version_tests
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/../include
+        ${CMAKE_CURRENT_BINARY_DIR}/../include # important as we configure the version in build tree
+)
+
+# link against gtest and gtest_main
+target_link_libraries(genogrove_config_version_tests GTest::gtest GTest::gtest_main)
+
+# set the expected version definitions
+target_compile_definitions(
         genogrove_config_version_tests
         PRIVATE
         EXPECTED_VERSION_MAJOR=${PROJECT_VERSION_MAJOR}
@@ -16,12 +34,4 @@ target_compile_definition(
         EXPECTED_VERSION_PATCH=${PROJECT_VERSION_PATCH}
 )
 
-file(GLOB TEST_SOURCES *.cpp)
-add_executable(genogrove_config_version_tests ${TEST_SOURCES})
-target_include_directories(
-        genogrove_config_version_tests
-        PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(genogrove_config_version_test GTest::gtest)
 gtest_discover_tests(genogrove_config_version_tests)
-

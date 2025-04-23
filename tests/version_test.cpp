@@ -15,9 +15,9 @@
 #endif
 
 TEST(version_test, version_numbers_set) {
-    EXPECT_EQ(genogrove_VERSION_MAJOR, 0);
-    EXPECT_EQ(genogrove_VERSION_MINOR, 0);
-    EXPECT_EQ(genogrove_VERSION_PATCH, 1);
+    EXPECT_GE(genogrove_VERSION_MAJOR, 0);
+    EXPECT_GE(genogrove_VERSION_MINOR, 0);
+    EXPECT_GE(genogrove_VERSION_PATCH, 0);
 }
 
 TEST(version_test, verion_numbers_match) {
