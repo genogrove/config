@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-test:
-    name: Build and test version on gcc-${{ matrix.gcc_version }}
+    name: build-test on gcc-${{ matrix.gcc_version }} with build type ${{ matrix.build_type }}
     runs-on: ubuntu-latest
 
     strategy:
