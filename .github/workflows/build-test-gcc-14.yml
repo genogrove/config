@@ -12,6 +12,7 @@ jobs:
 
     strategy:
       matrix:
+        build_type: [Debug, Release]
         gcc_version: [14.2]
 
     container:
