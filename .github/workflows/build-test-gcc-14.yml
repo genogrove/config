@@ -1,4 +1,4 @@
-name: gcc-14
+name: gcc-14.2
 on:
   push:
     branches: [ "main" ]
