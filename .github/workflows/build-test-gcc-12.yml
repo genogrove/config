@@ -1,4 +1,4 @@
-name: version-test_gcc_docker
+name: gcc-12
 on:
   push:
     branches: [ "main" ]
