@@ -1,0 +1,38 @@
+name: version-test_gcc_docker
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    name: Build and test version on gcc-${{ matrix.gcc_version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        gcc_version: [14.2]
+
+    container:
+      image: gcc:${{ matrix.gcc_version }}
+
+    steps:
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y build-essential cmake git
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure cmake
+        run: cmake -B build -S . -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+
