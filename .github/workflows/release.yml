@@ -1,0 +1,27 @@
+name: orchestrate release
+on:
+  release:
+    types: [published]
+jobs:
+  propagate-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: extract version from tag
+        id: vars
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: tag dependent repos (data_type)
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.genogrove }} # needs a Personal Access Token with repo permissions
+          repository: genogrove/data_type
+          event-type: sync-version
+          client-payload: '{"version": "${{ env.VERSION }}"}'
+
+      - name: tag dependent repos (structure)
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.genogrove }} # needs a Personal Access Token with repo permissions
+          repository: genogrove/structure
+          event-type: sync-version
+          client-payload: '{"version": "${{ env.VERSION }}"}'
